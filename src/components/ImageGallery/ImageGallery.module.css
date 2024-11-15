@@ -1,0 +1,9 @@
+.ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 12px;
+}
+
+.li {
+    flex-basis: calc((100% - 12px * 3)/4);
+}

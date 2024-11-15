@@ -12,6 +12,7 @@ async function getPhotos(search, page = 1) {
     },
   };
   const searchRes = await axios("search/photos", optionsApi);
+
   return searchRes.data;
 }
 export default getPhotos;

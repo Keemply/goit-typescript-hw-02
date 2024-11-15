@@ -1,7 +1,14 @@
 import css from "./SearchBar.module.css";
-import getPhotos from "../../unsplashApi";
+import { useSearch } from "../../searchContext";
 function SearchBar() {
-  function submitHandler() {}
+  const { initFirstSearch } = useSearch();
+  function submitHandler(e) {
+    e.preventDefault();
+    const searchValue = e.target[0].value;
+
+    initFirstSearch(searchValue.trim());
+    e.target.reset();
+  }
 
   return (
     <div className={css.headerContainer}>

@@ -1,7 +1,7 @@
-function ImageCard() {
+function ImageCard({ item }) {
   return (
     <div>
-      <img src="" alt="" />
+      <img src={item.urls.regular} alt={item.alt_description} />
     </div>
   );
 }
