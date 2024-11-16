@@ -33,7 +33,7 @@ export const SearchProvider = ({ children }) => {
     if (counter > 1 && counter < total_pages) {
       loadMore(counter);
     }
-  }, [counter, total_pages]);
+  }, [counter]);
   async function loadMore(counter) {
     console.log(counter);
     const result = await getPhotos(firstSearch, counter);
