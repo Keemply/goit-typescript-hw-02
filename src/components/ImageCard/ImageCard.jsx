@@ -2,6 +2,7 @@ import { useSearch } from "../../searchContext";
 import css from "./ImageCard.module.css";
 function ImageCard({ item }) {
   const { setCurrentImg, setModalIsOpen } = useSearch();
+
   function handleClick() {
     setCurrentImg(item);
     setModalIsOpen(true);
@@ -10,7 +11,7 @@ function ImageCard({ item }) {
     <div>
       <img
         className={css.img}
-        src={item.urls.regular}
+        src={item.urls.small}
         alt={item.alt_description}
         onClick={handleClick}
       />

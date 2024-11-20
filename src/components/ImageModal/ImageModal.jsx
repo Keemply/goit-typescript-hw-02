@@ -14,7 +14,7 @@ function ImageModal() {
         shouldCloseOnOverlayClick={true}
         shouldCloseOnEsc={true}
       >
-        <img src={currentImg.urls.full} alt={currentImg.alt_description} />
+        <img src={currentImg.urls.regular} alt={currentImg.alt_description} />
       </Modal>
     );
   }
