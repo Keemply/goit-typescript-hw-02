@@ -9,6 +9,9 @@ export const SearchProvider = ({ children }) => {
   const [firstObj, setFirstObj] = useState("");
   const [counter, setCounter] = useState(1);
   const [total_pages, setTotal_pages] = useState(null);
+  const [loaderVisible, setLoaderVisible] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(true);
   function initFirstSearch(val) {
     setFirstSearch(val);
   }
@@ -20,11 +23,15 @@ export const SearchProvider = ({ children }) => {
 
   async function doSearchFirst() {
     try {
+      setLoaderVisible(true);
       const result = await getPhotos(firstSearch);
+      setLoaderVisible(false);
       setTotal_pages(result.total_pages);
-
+      setCounter(1);
       setFirstObj(result.results);
     } catch (error) {
+      setLoaderVisible(false);
+      setShowError(true);
       console.log(error);
     }
   }
@@ -35,14 +42,33 @@ export const SearchProvider = ({ children }) => {
     }
   }, [counter]);
   async function loadMore(counter) {
-    console.log(counter);
-    const result = await getPhotos(firstSearch, counter);
-    setFirstObj((pref) => {
-      return [...pref, ...result.results];
-    });
+    try {
+      setLoaderVisible(true);
+      const result = await getPhotos(firstSearch, counter);
+      setLoaderVisible(false);
+      setFirstObj((pref) => {
+        return [...pref, ...result.results];
+      });
+    } catch (error) {
+      console.log(error);
+      setLoaderVisible(false);
+      setShowError(true);
+    }
   }
   return (
-    <searchContext.Provider value={{ initFirstSearch, firstObj, setCounter }}>
+    <searchContext.Provider
+      value={{
+        initFirstSearch,
+        firstObj,
+        setCounter,
+        loaderVisible,
+        setLoaderVisible,
+        showError,
+        counter,
+        total_pages,
+        modalIsOpen,
+      }}
+    >
       {children}
     </searchContext.Provider>
   );
