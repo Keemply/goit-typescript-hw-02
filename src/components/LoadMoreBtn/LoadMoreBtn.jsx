@@ -1,8 +1,8 @@
 import { useSearch } from "../../searchContext";
 function LoadMoreBtn() {
-  const { setCounter } = useSearch();
+  const { loadMoreHandler } = useSearch();
   function clickHandler() {
-    setCounter((pref) => pref + 1);
+    loadMoreHandler();
   }
   return (
     <button type="button" onClick={clickHandler}>
