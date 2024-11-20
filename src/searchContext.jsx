@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import getPhotos from "./unsplashApi";
+import { createContext, useContext, useState } from "react";
+
 const searchContext = createContext();
 
 export const useSearch = () => useContext(searchContext);
@@ -13,60 +13,22 @@ export const SearchProvider = ({ children }) => {
   const [showError, setShowError] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [currentImg, setCurrentImg] = useState({});
-  function initFirstSearch(val) {
-    setFirstSearch(val);
-  }
-  useEffect(() => {
-    if (firstSearch !== "") {
-      doSearchFirst();
-    }
-  }, [firstSearch]);
 
-  async function doSearchFirst() {
-    try {
-      setLoaderVisible(true);
-      const result = await getPhotos(firstSearch);
-      setLoaderVisible(false);
-      setTotal_pages(result.total_pages);
-      setCounter(1);
-      setFirstObj(result.results);
-    } catch (error) {
-      setLoaderVisible(false);
-      setShowError(true);
-      console.log(error);
-    }
-  }
-  useEffect(() => {
-    if (counter > 1 && counter < total_pages) {
-      loadMore(counter);
-    }
-  }, [counter]);
-  async function loadMore(counter) {
-    try {
-      setLoaderVisible(true);
-      const result = await getPhotos(firstSearch, counter);
-      setLoaderVisible(false);
-      setFirstObj((pref) => {
-        return [...pref, ...result.results];
-      });
-    } catch (error) {
-      console.log(error);
-      setLoaderVisible(false);
-      setShowError(true);
-    }
-  }
   return (
     <searchContext.Provider
       value={{
-        initFirstSearch,
+        firstSearch,
+        setFirstSearch,
         setFirstObj,
         firstObj,
         setCounter,
         loaderVisible,
         setLoaderVisible,
         showError,
+        setShowError,
         counter,
         total_pages,
+        setTotal_pages,
         modalIsOpen,
         setModalIsOpen,
         setCurrentImg,
