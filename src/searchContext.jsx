@@ -11,7 +11,8 @@ export const SearchProvider = ({ children }) => {
   const [total_pages, setTotal_pages] = useState(null);
   const [loaderVisible, setLoaderVisible] = useState(false);
   const [showError, setShowError] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [currentImg, setCurrentImg] = useState({});
   function initFirstSearch(val) {
     setFirstSearch(val);
   }
@@ -36,7 +37,6 @@ export const SearchProvider = ({ children }) => {
     }
   }
   useEffect(() => {
-    console.log(total_pages);
     if (counter > 1 && counter < total_pages) {
       loadMore(counter);
     }
@@ -59,6 +59,7 @@ export const SearchProvider = ({ children }) => {
     <searchContext.Provider
       value={{
         initFirstSearch,
+        setFirstObj,
         firstObj,
         setCounter,
         loaderVisible,
@@ -67,6 +68,9 @@ export const SearchProvider = ({ children }) => {
         counter,
         total_pages,
         modalIsOpen,
+        setModalIsOpen,
+        setCurrentImg,
+        currentImg,
       }}
     >
       {children}

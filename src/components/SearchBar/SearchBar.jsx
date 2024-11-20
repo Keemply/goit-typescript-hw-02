@@ -10,13 +10,13 @@ const notify = () =>
     },
   });
 function SearchBar() {
-  const { initFirstSearch } = useSearch();
+  const { initFirstSearch, setFirstObj } = useSearch();
   function submitHandler(e) {
     e.preventDefault();
     const searchValue = e.target[0].value;
-    console.log(searchValue.trim());
 
     if (searchValue.trim() !== "") {
+      setFirstObj("");
       initFirstSearch(searchValue.trim());
     } else {
       notify();

@@ -1,7 +1,22 @@
 import Modal from "react-modal";
 import { useSearch } from "../../searchContext";
-const { modalIsOpen } = useSearch();
-function ImageModal({ children }) {
-  return <Modal isOpen={modalIsOpen}>{children}</Modal>;
+
+function ImageModal() {
+  const { currentImg, modalIsOpen, setModalIsOpen } = useSearch();
+  function closeModal() {
+    setModalIsOpen(false);
+  }
+  if (modalIsOpen) {
+    return (
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        shouldCloseOnOverlayClick={true}
+        shouldCloseOnEsc={true}
+      >
+        <img src={currentImg.urls.full} alt={currentImg.alt_description} />
+      </Modal>
+    );
+  }
 }
 export default ImageModal;
