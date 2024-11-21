@@ -14,49 +14,32 @@ export const SearchProvider = ({ children }) => {
   const [showError, setShowError] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [currentImg, setCurrentImg] = useState({});
-  useEffect(() => {
-    if (firstSearch !== "") {
-      async function doSearchFirst() {
-        try {
-          setLoaderVisible(true);
-          const result = await getPhotos(firstSearch);
-          setLoaderVisible(false);
-          setTotal_pages(result.total_pages);
 
-          setFirstObj(result.results);
-        } catch (error) {
-          setLoaderVisible(false);
-          setShowError(true);
-          console.log(error);
-        }
-      }
-      doSearchFirst();
-    }
-  }, [firstSearch]);
   function getSearchQuery(val) {
     setFirstSearch(val);
     setCounter(1);
     setFirstObj("");
+    setTotal_pages(0);
   }
   useEffect(() => {
-    if (counter > 1 && counter < total_pages) {
-      async function loadMore() {
+    if (firstSearch !== "") {
+      async function wrapper() {
         try {
           setLoaderVisible(true);
           const result = await getPhotos(firstSearch, counter);
           setLoaderVisible(false);
+          setTotal_pages(result.total_pages);
           setFirstObj((pref) => {
             return [...pref, ...result.results];
           });
         } catch (error) {
-          console.log(error);
           setLoaderVisible(false);
           setShowError(true);
         }
       }
-      loadMore();
+      wrapper();
     }
-  }, [counter]);
+  }, [firstSearch, counter]);
   function loadMoreHandler() {
     setCounter((pref) => pref + 1);
   }

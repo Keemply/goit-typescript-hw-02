@@ -10,7 +10,7 @@ const notify = () =>
     },
   });
 function SearchBar() {
-  const { getSearchQuery, setFirstObj } = useSearch();
+  const { getSearchQuery } = useSearch();
   function submitHandler(e) {
     e.preventDefault();
     const searchValue = e.target[0].value;
