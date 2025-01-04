@@ -6,24 +6,19 @@ import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageModal from "./components/ImageModal/ImageModal";
 import { useSearch } from "./searchContext";
 import ReactModal from "react-modal";
-
+import React from "react";
 import "./App.css";
 ReactModal.setAppElement("#root");
 function App() {
   const {
-    firstObj,
-
     loaderVisible,
-
     showError,
-
     counter,
-
     total_pages,
   } = useSearch();
 
   return (
-    <>
+    <div>
       <header>
         <SearchBar />
       </header>
@@ -31,8 +26,8 @@ function App() {
       <ImageModal />
       {showError && <ErrorMessage />}
       {loaderVisible && <Loader />}
-      {firstObj !== "" && counter < total_pages && <LoadMoreBtn />}
-    </>
+      {counter < total_pages && <LoadMoreBtn />}
+    </div>
   );
 }
 export default App;

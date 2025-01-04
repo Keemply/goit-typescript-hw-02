@@ -1,8 +1,12 @@
 import Modal from "react-modal";
+import React from "react";
 import { useSearch } from "../../searchContext";
 
 function ImageModal() {
   const { currentImg, modalIsOpen, setModalIsOpen } = useSearch();
+  if (!currentImg.urls) {
+    return null
+  }
   function closeModal() {
     setModalIsOpen(false);
   }

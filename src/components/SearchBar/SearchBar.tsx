@@ -1,6 +1,7 @@
 import css from "./SearchBar.module.css";
 import { useSearch } from "../../searchContext";
 import toast, { Toaster } from "react-hot-toast";
+import React, { FormEvent } from "react";
 
 const notify = () =>
   toast("Необхідно ввести текст для пошуку зображень!", {
@@ -11,16 +12,17 @@ const notify = () =>
   });
 function SearchBar() {
   const { getSearchQuery } = useSearch();
-  function submitHandler(e) {
+  function submitHandler(e: FormEvent) {
+    const form = e.target as HTMLFormElement
     e.preventDefault();
-    const searchValue = e.target[0].value;
+    const searchValue = (form.elements[0] as HTMLInputElement).value;
 
     if (searchValue.trim() !== "") {
       getSearchQuery(searchValue.trim());
     } else {
       notify();
     }
-    e.target.reset();
+    form.reset();
   }
 
   return (

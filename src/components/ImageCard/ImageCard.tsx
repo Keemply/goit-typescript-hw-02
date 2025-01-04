@@ -1,7 +1,12 @@
-import { useSearch } from "../../searchContext";
+import { ImgObj, useSearch } from "../../searchContext";
+import React from "react";
 import css from "./ImageCard.module.css";
-function ImageCard({ item }) {
+
+function ImageCard ({ item }: {item: ImgObj}) {
   const { setCurrentImg, setModalIsOpen } = useSearch();
+  if (!item.urls) {
+  return null
+}
 
   function handleClick() {
     setCurrentImg(item);

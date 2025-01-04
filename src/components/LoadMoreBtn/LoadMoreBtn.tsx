@@ -1,4 +1,5 @@
 import { useSearch } from "../../searchContext";
+import React from "react";
 function LoadMoreBtn() {
   const { loadMoreHandler } = useSearch();
   function clickHandler() {
