@@ -2,7 +2,7 @@ import React from "react";
 import { createContext, useContext, useState } from "react";
 import getPhotos from "./unsplashApi";
 import { useEffect } from "react";
-export type ImgObj = Partial<{
+export type ImgObj = {
   id: number,
   image: string,
   urls: {
@@ -10,7 +10,7 @@ export type ImgObj = Partial<{
     regular: string
   },
   alt_description: string
-}>
+}
 type UserContextProps = {
   firstSearch: string,
   firstObj: ImgObj[],
@@ -24,7 +24,7 @@ type UserContextProps = {
   setShowError: React.Dispatch<React.SetStateAction<boolean>>,
   modalIsOpen:boolean,
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  currentImg: ImgObj,
+  currentImg: Partial<ImgObj>,
   setCurrentImg: React.Dispatch<React.SetStateAction<object>>,
   getSearchQuery: (val: string) => void,
   loadMoreHandler: () => void
@@ -50,7 +50,7 @@ export const SearchProvider = ({ children }: Props) => {
   const [loaderVisible, setLoaderVisible] = useState<boolean>(false);
   const [showError, setShowError] = useState<boolean>(false);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [currentImg, setCurrentImg] = useState<ImgObj>({});
+  const [currentImg, setCurrentImg] = useState<Partial<ImgObj>>({});
 
   function getSearchQuery(val: string) {
     setFirstSearch(val);
