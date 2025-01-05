@@ -24,8 +24,8 @@ type UserContextProps = {
   setShowError: React.Dispatch<React.SetStateAction<boolean>>,
   modalIsOpen:boolean,
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  currentImg: Partial<ImgObj>,
-  setCurrentImg: React.Dispatch<React.SetStateAction<object>>,
+  currentImg: ImgObj | null,
+  setCurrentImg: React.Dispatch<React.SetStateAction<ImgObj | null>>,
   getSearchQuery: (val: string) => void,
   loadMoreHandler: () => void
 }
@@ -50,7 +50,7 @@ export const SearchProvider = ({ children }: Props) => {
   const [loaderVisible, setLoaderVisible] = useState<boolean>(false);
   const [showError, setShowError] = useState<boolean>(false);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [currentImg, setCurrentImg] = useState<Partial<ImgObj>>({});
+  const [currentImg, setCurrentImg] = useState<ImgObj | null>(null);
 
   function getSearchQuery(val: string) {
     setFirstSearch(val);

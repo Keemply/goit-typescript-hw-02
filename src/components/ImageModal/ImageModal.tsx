@@ -4,13 +4,10 @@ import { useSearch } from "../../searchContext";
 
 function ImageModal() {
   const { currentImg, modalIsOpen, setModalIsOpen } = useSearch();
-  if (!currentImg.urls) {
-    return null
-  }
   function closeModal() {
     setModalIsOpen(false);
   }
-  if (modalIsOpen) {
+  if (modalIsOpen && currentImg) {
     return (
       <Modal
         isOpen={modalIsOpen}
